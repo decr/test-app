@@ -5,10 +5,9 @@ ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
 ENV COMPOSER_HOME /usr/local
 
 ARG APP_HOST_NAME
-ARG APP_DOCUMENT_ROOT
 
 ENV APP_HOST_NAME "$APP_HOST_NAME"
-ENV APP_DOCUMENT_ROOT "$APP_DOCUMENT_ROOT"
+ENV APP_DOCUMENT_ROOT "/srv/app/webroot"
 
 COPY config/001-app.conf /etc/apache2/sites-available/000-default.conf
 COPY config/apc.ini /usr/local/etc/php/conf.d/
@@ -36,3 +35,11 @@ RUN set -ex \
 		curl -sS https://getcomposer.org/installer; \
 	} | php \
 	&& mv composer.phar /usr/local/bin/composer
+
+COPY app/composer.json app/composer.lock /srv/app/
+
+RUN composer install --working-dir=/srv/app --no-dev
+
+EXPOSE 80
+
+COPY app /srv/app/
