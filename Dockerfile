@@ -10,6 +10,7 @@ ENV APP_HOST_NAME "$APP_HOST_NAME"
 ENV APP_DOCUMENT_ROOT "/srv/app/webroot"
 
 COPY config/001-app.conf /etc/apache2/sites-available/000-default.conf
+COPY config/ports.conf /etc/apache2/ports.conf
 COPY config/apc.ini /usr/local/etc/php/conf.d/
 
 RUN set -ex \
@@ -40,6 +41,6 @@ COPY app/composer.json app/composer.lock /srv/app/
 
 RUN composer install --working-dir=/srv/app --no-dev
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY app /srv/app/
