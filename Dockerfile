@@ -41,6 +41,6 @@ COPY app/composer.json app/composer.lock /srv/app/
 
 RUN composer install --working-dir=/srv/app --no-dev
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY app /srv/app/
