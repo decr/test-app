@@ -36,10 +36,9 @@ $cakeDescription = 'Test';
     <?= $this->Html->css('home.css') ?>
 </head>
 <body class="home">
-
 <header class="row">
     <div class="header-title">
-        <h1>Hello! 005<!-- <?= Configure::version() ?> --></h1>
+        <h1>Hello! 005/<?= $_SERVER['SERVER_ADDR'] ?><!-- <?= Configure::version() ?> --></h1>
     </div>
 </header>
 
