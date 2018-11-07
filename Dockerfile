@@ -4,12 +4,12 @@ ENV APACHE_CONFDIR /etc/apache2
 ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
 ENV COMPOSER_HOME /usr/local
 
-ARG APP_HOST_NAME
-ARG APP_HOST_PORT
+ARG HOST_NAME
+ARG HOST_PORT
 
-ENV APP_HOST_NAME "$APP_HOST_NAME"
-ENV APP_HOST_PORT "$APP_HOST_PORT"
-ENV APP_DOCUMENT_ROOT "/srv/app/webroot"
+ENV HOST_NAME "$HOST_NAME"
+ENV HOST_PORT "$HOST_PORT"
+ENV DOCUMENT_ROOT "/srv/app/webroot"
 
 COPY config/001-app.conf /etc/apache2/sites-available/000-default.conf
 COPY config/ports.conf /etc/apache2/ports.conf
@@ -17,9 +17,9 @@ COPY config/apc.ini /usr/local/etc/php/conf.d/
 
 RUN set -ex \
 # append apache envver
-	&& echo "export APP_HOST_NAME=$APP_HOST_NAME" >> "$APACHE_ENVVARS" \
-	&& echo "export APP_HOST_PORT=$APP_HOST_PORT" >> "$APACHE_ENVVARS" \
-	&& echo "export APP_DOCUMENT_ROOT=$APP_DOCUMENT_ROOT" >> "$APACHE_ENVVARS" \
+	&& echo "export HOST_NAME=$HOST_NAME" >> "$APACHE_ENVVARS" \
+	&& echo "export HOST_PORT=$HOST_PORT" >> "$APACHE_ENVVARS" \
+	&& echo "export DOCUMENT_ROOT=$DOCUMENT_ROOT" >> "$APACHE_ENVVARS" \
 # setup apache envvers
 	&& sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS" \
 	&& . "$APACHE_ENVVARS" \
@@ -44,6 +44,6 @@ COPY app/composer.json app/composer.lock /srv/app/
 
 RUN composer install --working-dir=/srv/app --no-dev
 
-EXPOSE $APP_HOST_PORT
+EXPOSE $HOST_PORT
 
 COPY app /srv/app/
