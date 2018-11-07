@@ -7,7 +7,6 @@ ENV COMPOSER_HOME /usr/local
 ARG HOST_NAME
 ARG HOST_PORT
 
-ENV HOST_NAME "$HOST_NAME"
 ENV HOST_PORT "$HOST_PORT"
 ENV DOCUMENT_ROOT "/srv/app/webroot"
 
@@ -17,7 +16,6 @@ COPY config/apc.ini /usr/local/etc/php/conf.d/
 
 RUN set -ex \
 # append apache envver
-	&& echo "export HOST_NAME=$HOST_NAME" >> "$APACHE_ENVVARS" \
 	&& echo "export HOST_PORT=$HOST_PORT" >> "$APACHE_ENVVARS" \
 	&& echo "export DOCUMENT_ROOT=$DOCUMENT_ROOT" >> "$APACHE_ENVVARS" \
 # setup apache envvers
