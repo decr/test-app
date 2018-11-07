@@ -5,9 +5,11 @@ ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
 ENV COMPOSER_HOME /usr/local
 
 ARG APP_HOST_NAME
+ARG APP_HOST_PORT
 ARG APP_DOCUMENT_ROOT
 
 ENV APP_HOST_NAME "$APP_HOST_NAME"
+ENV APP_HOST_PORT "$APP_HOST_PORT"
 ENV APP_DOCUMENT_ROOT "$APP_DOCUMENT_ROOT"
 
 COPY config/001-app.conf /etc/apache2/sites-available/000-default.conf
@@ -17,6 +19,7 @@ COPY config/apc.ini /usr/local/etc/php/conf.d/
 RUN set -ex \
 # append apache envver
 	&& echo "export APP_HOST_NAME=$APP_HOST_NAME" >> "$APACHE_ENVVARS" \
+	&& echo "export APP_HOST_PORT=$APP_HOST_PORT" >> "$APACHE_ENVVARS" \
 	&& echo "export APP_DOCUMENT_ROOT=$APP_DOCUMENT_ROOT" >> "$APACHE_ENVVARS" \
 # setup apache envvers
 	&& sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS" \
@@ -37,3 +40,5 @@ RUN set -ex \
 		curl -sS https://getcomposer.org/installer; \
 	} | php \
 	&& mv composer.phar /usr/local/bin/composer
+
+EXPOSE $APP_HOST_PORT
