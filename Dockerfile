@@ -42,6 +42,4 @@ COPY app/composer.json app/composer.lock /srv/app/
 
 RUN composer install --working-dir=/srv/app --no-dev
 
-EXPOSE $HOST_PORT
-
 COPY app /srv/app/
