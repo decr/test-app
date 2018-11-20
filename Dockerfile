@@ -4,10 +4,11 @@ ENV APACHE_CONFDIR /etc/apache2
 ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
 ENV COMPOSER_HOME /usr/local
 
-ARG HOST_NAME
-ARG HOST_PORT
+# ARG HOST_NAME
+# ARG HOST_PORT
 
-ENV HOST_PORT "$HOST_PORT"
+#ENV HOST_PORT "$HOST_PORT"
+ENV HOST_PORT 80
 ENV DOCUMENT_ROOT "/srv/app/webroot"
 
 COPY config/001-app.conf /etc/apache2/sites-available/000-default.conf
@@ -43,3 +44,5 @@ COPY app/composer.json app/composer.lock /srv/app/
 RUN composer install --working-dir=/srv/app --no-dev
 
 COPY app /srv/app/
+
+WORKDIR /srv/app
