@@ -8,7 +8,7 @@ ENV COMPOSER_HOME /usr/local
 # ARG HOST_PORT
 
 #ENV HOST_PORT "$HOST_PORT"
-ENV HOST_PORT 80
+ENV HOST_PORT "80"
 ENV DOCUMENT_ROOT "/srv/app/webroot"
 
 COPY config/001-app.conf /etc/apache2/sites-available/000-default.conf
