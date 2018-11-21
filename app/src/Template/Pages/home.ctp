@@ -38,7 +38,7 @@ $cakeDescription = 'Test';
 <body class="home">
 <header class="row">
     <div class="header-title">
-        <h1>Hello! v0.06/<?= $_SERVER['SERVER_ADDR'] ?><!-- <?= Configure::version() ?> --></h1>
+        <h1>Hello! v0.07/<?= $_SERVER['SERVER_ADDR'] ?><!-- <?= Configure::version() ?> --></h1>
     </div>
 </header>
 
