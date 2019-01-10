@@ -38,7 +38,7 @@ $cakeDescription = 'Test';
 <body class="home">
 <header class="row">
     <div class="header-title">
-        <h1>Hello! v0.20/<?= $_SERVER['SERVER_ADDR'] ?><!-- <?= Configure::version() ?> --></h1>
+        <h1>Hello! v0.21/<?= $_SERVER['SERVER_ADDR'] ?><!-- <?= Configure::version() ?> --></h1>
         <h1>PORT:<?= env('HOST_PORT') ?><!-- <?= Configure::version() ?> --></h1>
         <h1>BACKEND_HOST_PORT=<?= $_GET['port'] ?></h1>
     </div>
